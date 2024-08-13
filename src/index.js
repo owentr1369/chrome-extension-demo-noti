@@ -1,8 +1,19 @@
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.message === "startup") {
-    appendContent();
-  }
-});
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   if (message.message === "startup") {
+//     appendContent();
+//   }
+// });
+
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   if (message.message === "new_window") {
+//     handleNewWindowEvent();
+//   }
+//   sendResponse({ status: "received" });
+// });
+
+// function handleNewWindowEvent() {
+//   appendContent("A new window has been opened!");
+// }
 
 const appendContent = () => {
   const body = document.querySelector("body");
@@ -75,3 +86,7 @@ const appendContent = () => {
   fixedElement.appendChild(dialogBox);
   body.appendChild(fixedElement);
 };
+
+setTimeout(() => {
+  appendContent();
+}, 3000);

@@ -1,17 +1,21 @@
+const sampleUrl = "https://google.com";
+
 chrome.runtime.onInstalled.addListener(() => {
   // Open new tab to google.com
-  chrome.tabs.create({ url: "https://google.com" });
+  console.log("Extension has been installed");
+  chrome.tabs.create({ url: sampleUrl });
 });
 
 chrome.runtime.onStartup.addListener(() => {
-  // Log the startup event
-  console.log("onStartup");
+  console.log("Browser has started up");
+  // Perform any initialization tasks here
+  // Send message to content script
+  chrome.tabs.create({ url: sampleUrl });
+});
 
-  // Query the active tab in the current window
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    if (tabs[0]) {
-      // Send a message to the content script in the active tab
-      chrome.tabs.sendMessage(tabs[0].id, { message: "startup" });
-    }
-  });
+chrome.windows.onCreated.addListener(() => {
+  console.log("A new window has been opened");
+  // Perform any tasks needed when a new window is opened
+  // For example, send a message to the content script in the new window
+  chrome.tabs.create({ url: sampleUrl });
 });
